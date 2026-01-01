@@ -1,0 +1,96 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Cliente {
+  id         String      @id @default(uuid())
+  nome       String
+  telefone   String
+  whatsapp   String?
+  endereco   String?
+  encomendas Encomenda[]
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  @@index([nome])
+}
+
+model Sabor {
+  id                String      @id @default(uuid())
+  nome              String
+  tipo              TipoSabor
+  ativo             Boolean     @default(true)
+  encomendas        Encomenda[]
+  encomendaMassas   Encomenda[] @relation("massa")
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+}
+
+enum TipoSabor {
+  RECHEIO
+  MASSA
+}
+
+model Encomenda {
+  id                    String          @id @default(uuid())
+  clienteId             String
+  cliente               Cliente         @relation(fields: [clienteId], references: [id])
+  
+  tamanho               Tamanho
+  tipoCobertura         TipoCobertura
+  diametroCm            Int
+  pesoKg                Float
+  topoIncluso           Boolean         @default(false)
+  
+  recheioId             String
+  recheio               Sabor           @relation(fields: [recheioId], references: [id])
+  massaId               String
+  massa                 Sabor           @relation("massa", fields: [massaId], references: [id])
+  
+  dataPedido            DateTime        @default(now())
+  dataEntrega           DateTime
+  antecedenciaDias      Int
+  
+  valorTotal            Float
+  valorEntrada          Float
+  saldoRestante         Float
+  entradaPaga           Boolean         @default(false)
+  saldoPago             Boolean         @default(false)
+  
+  status                StatusEncomenda @default(PENDENTE)
+  observacoes           String?
+  googleCalendarEventId String?
+  
+  createdAt             DateTime        @default(now())
+  updatedAt             DateTime        @updatedAt
+
+  @@index([clienteId])
+  @@index([dataEntrega])
+  @@index([status])
+}
+
+enum Tamanho {
+  PP
+  P
+  M
+  G
+  GG
+}
+
+enum TipoCobertura {
+  CHANTINHO
+  GANACHE
+}
+
+enum StatusEncomenda {
+  PENDENTE
+  EM_PRODUCAO
+  PRONTO
+  ENTREGUE
+  CANCELADO
+}
