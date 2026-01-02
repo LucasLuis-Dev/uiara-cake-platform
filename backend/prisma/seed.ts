@@ -3,43 +3,43 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log('🌱 Iniciando seed...');
+  console.log('🌱 Starting seed...');
   
-  const recheios = [
+  const fillings = [
     'Chocolate', 'Prestígio', 'Doce de Leite', 'Ninho',
     'Paçoca', 'Café', 'Banana', 'Delícia de Abacaxi',
     'Maracujá', 'Limão', 'Crocante',
   ];
   
-  for (const nome of recheios) {
-    await prisma.sabor.upsert({
-      where: { id: nome.toLowerCase().replace(/\s/g, '-') },
+  for (const name of fillings) {
+    await prisma.flavor.upsert({
+      where: { id: name.toLowerCase().replace(/\s/g, '-') },
       update: {},
       create: {
-        id: nome.toLowerCase().replace(/\s/g, '-'),
-        nome,
-        tipo: 'RECHEIO',
-        ativo: true,
+        id: name.toLowerCase().replace(/\s/g, '-'),
+        name,
+        type: 'FILLING',
+        active: true,
       },
     });
   }
   
-  const massas = ['Branca', 'Chocolate'];
+  const doughs = ['Branca', 'Chocolate'];
   
-  for (const nome of massas) {
-    await prisma.sabor.upsert({
-      where: { id: `massa-${nome.toLowerCase()}` },
+  for (const name of doughs) {
+    await prisma.flavor.upsert({
+      where: { id: `dough-${name.toLowerCase()}` },
       update: {},
       create: {
-        id: `massa-${nome.toLowerCase()}`,
-        nome,
-        tipo: 'MASSA',
-        ativo: true,
+        id: `dough-${name.toLowerCase()}`,
+        name,
+        type: 'DOUGH',
+        active: true,
       },
     });
   }
   
-  console.log('✅ Seed concluído!');
+  console.log('✅ Seed completed!');
 }
 
 main()

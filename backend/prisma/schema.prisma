@@ -1,3 +1,4 @@
+// schema.prisma
 generator client {
   provider = "prisma-client-js"
 }
@@ -7,74 +8,57 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Cliente {
-  id         String      @id @default(uuid())
-  nome       String
-  telefone   String
-  whatsapp   String?
-  endereco   String?
-  encomendas Encomenda[]
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
+model Customer {
+  id        String   @id @default(uuid())
+  name      String
+  phone     String
+  whatsapp  String?
+  address   String?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
-  @@index([nome])
+  orders Order[]
+
+  @@map("customers")
 }
 
-model Sabor {
-  id                String      @id @default(uuid())
-  nome              String
-  tipo              TipoSabor
-  ativo             Boolean     @default(true)
-  encomendas        Encomenda[]
-  encomendaMassas   Encomenda[] @relation("massa")
-  createdAt         DateTime    @default(now())
-  updatedAt         DateTime    @updatedAt
+model Flavor {
+  id        String      @id
+  name      String
+  type      FlavorType
+  active    Boolean     @default(true)
+  createdAt DateTime    @default(now()) @map("created_at")
+  updatedAt DateTime    @updatedAt @map("updated_at")
+
+  ordersAsFilling Order[] @relation("filling")
+  ordersAsDough   Order[] @relation("dough")
+
+  @@map("flavors")
 }
 
-enum TipoSabor {
-  RECHEIO
-  MASSA
+model Order {
+  id             String         @id @default(uuid())
+  customerId     String         @map("customer_id")
+  fillingId      String         @map("filling_id")
+  doughId        String         @map("dough_id")
+  size           Size
+  coverageType   CoverageType   @map("coverage_type")
+  orderDate      DateTime       @default(now()) @map("order_date")
+  deliveryDate   DateTime       @map("delivery_date")
+  totalValue     Decimal        @map("total_value") @db.Decimal(10, 2)
+  status         OrderStatus    @default(PENDING)
+  observations   String?
+  createdAt      DateTime       @default(now()) @map("created_at")
+  updatedAt      DateTime       @updatedAt @map("updated_at")
+
+  customer Customer @relation(fields: [customerId], references: [id])
+  filling  Flavor   @relation("filling", fields: [fillingId], references: [id])
+  dough    Flavor   @relation("dough", fields: [doughId], references: [id])
+
+  @@map("orders")
 }
 
-model Encomenda {
-  id                    String          @id @default(uuid())
-  clienteId             String
-  cliente               Cliente         @relation(fields: [clienteId], references: [id])
-  
-  tamanho               Tamanho
-  tipoCobertura         TipoCobertura
-  diametroCm            Int
-  pesoKg                Float
-  topoIncluso           Boolean         @default(false)
-  
-  recheioId             String
-  recheio               Sabor           @relation(fields: [recheioId], references: [id])
-  massaId               String
-  massa                 Sabor           @relation("massa", fields: [massaId], references: [id])
-  
-  dataPedido            DateTime        @default(now())
-  dataEntrega           DateTime
-  antecedenciaDias      Int
-  
-  valorTotal            Float
-  valorEntrada          Float
-  saldoRestante         Float
-  entradaPaga           Boolean         @default(false)
-  saldoPago             Boolean         @default(false)
-  
-  status                StatusEncomenda @default(PENDENTE)
-  observacoes           String?
-  googleCalendarEventId String?
-  
-  createdAt             DateTime        @default(now())
-  updatedAt             DateTime        @updatedAt
-
-  @@index([clienteId])
-  @@index([dataEntrega])
-  @@index([status])
-}
-
-enum Tamanho {
+enum Size {
   PP
   P
   M
@@ -82,15 +66,21 @@ enum Tamanho {
   GG
 }
 
-enum TipoCobertura {
-  CHANTINHO
+enum FlavorType {
+  FILLING
+  DOUGH
+}
+
+enum CoverageType {
+  CHANTILLY
   GANACHE
 }
 
-enum StatusEncomenda {
-  PENDENTE
-  EM_PRODUCAO
-  PRONTO
-  ENTREGUE
-  CANCELADO
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  IN_PRODUCTION
+  READY
+  DELIVERED
+  CANCELLED
 }
