@@ -11,15 +11,19 @@ import {
   HttpStatus,
   ParseBoolPipe,
   DefaultValuePipe,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiQuery } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiQuery, ApiBearerAuth } from '@nestjs/swagger';
 import { FlavorsService } from './flavors.service';
 import { CreateFlavorDto } from './dto/create-flavor.dto';
 import { UpdateFlavorDto } from './dto/update-flavor.dto';
 import { ToggleActiveDto } from './dto/toggle-active.dto';
 import { FlavorType } from '@prisma/client';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @ApiTags('flavors')
+@ApiBearerAuth('JWT-auth')
+@UseGuards(JwtAuthGuard)
 @Controller('flavors')
 export class FlavorsController {
   constructor(private readonly flavorsService: FlavorsService) {}
