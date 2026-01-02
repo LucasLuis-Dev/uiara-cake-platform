@@ -10,6 +10,8 @@ import { FlavorsModule } from './flavors/flavors.module';
 import { AuthModule } from './auth/auth.module';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { APP_GUARD } from '@nestjs/core';
+import { CalendarService } from './calendar/calendar.service';
+import { CalendarModule } from './calendar/calendar.module';
 
 @Module({
   imports: [
@@ -22,6 +24,7 @@ import { APP_GUARD } from '@nestjs/core';
     ReportsModule,
     FlavorsModule,
     AuthModule,
+    CalendarModule,
   ],
   controllers: [AppController],
   providers: [
@@ -30,6 +33,7 @@ import { APP_GUARD } from '@nestjs/core';
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
     },
+    CalendarService,
   ],
 })
 export class AppModule {}

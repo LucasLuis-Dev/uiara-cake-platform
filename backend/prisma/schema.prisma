@@ -50,6 +50,7 @@ model Order {
   observations   String?
   createdAt      DateTime       @default(now()) @map("created_at")
   updatedAt      DateTime       @updatedAt @map("updated_at")
+  googleCalendarEventId String?
 
   customer Customer @relation(fields: [customerId], references: [id])
   filling  Flavor   @relation("filling", fields: [fillingId], references: [id])
