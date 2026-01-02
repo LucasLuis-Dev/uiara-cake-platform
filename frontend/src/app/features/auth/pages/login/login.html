@@ -1,0 +1,70 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <img src="/assets/logo.svg" alt="">
+      <p>Gerenciamento de Encomendas</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="p-fluid">
+        <div class="p-field">
+          <label for="email">Email</label>
+          <p-iconfield>
+                    <p-inputicon class="pi pi-envelope" />
+                    <input
+                        id="email"
+                        type="email"
+                        pInputText
+                        formControlName="email"
+                        placeholder="seu@email.com"
+                        class="w-full"
+                        [class.ng-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" />
+            </p-iconfield>
+          @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+            <small class="p-error">
+              Email inválido
+            </small>
+          }
+        </div>
+
+        <div class="p-field">
+          <label for="password">Senha</label>
+          <p-iconField iconPosition="left">
+            <p-inputIcon styleClass="pi pi-lock" />
+            <p-password 
+              id="password"
+              formControlName="password"
+              [feedback]="false"
+              [toggleMask]="true"
+              placeholder="••••••"
+              styleClass="w-full"
+            />
+          </p-iconField>
+           @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+            <small class="p-error">
+              Senha deve ter no mínimo 6 caracteres
+            </small>
+          }
+        </div>
+        
+        
+        @if (authFacade.error()) {
+          <p-message 
+            severity="error" 
+            [text]="authFacade.error()!"
+          ></p-message>
+        }
+
+
+        <p-button 
+          type="submit"
+          label="Entrar"
+          icon="pi pi-sign-in"
+          [loading]="authFacade.loading()"
+          [disabled]="loginForm.invalid"
+          styleClass="w-full"
+        ></p-button>
+      </div>
+    </form>
+  </div>
+</div>
