@@ -14,3 +14,5 @@ export interface CustomerCreateDto {
   whatsapp?: string;
   address?: string;
 }
+
+export interface CustomerUpdateDto extends Partial<CustomerCreateDto> {}

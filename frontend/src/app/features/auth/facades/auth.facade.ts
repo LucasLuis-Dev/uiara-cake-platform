@@ -27,7 +27,7 @@ export class AuthFacade {
     this.authService.login(credentials).subscribe({
       next: () => {
         this.loadingSignal.set(false);
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/admin']);
       },
       error: (error) => {
         this.loadingSignal.set(false);

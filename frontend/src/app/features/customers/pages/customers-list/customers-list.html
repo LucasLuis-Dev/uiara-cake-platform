@@ -1,0 +1,91 @@
+<div class="customers-page">
+  <!-- Header -->
+  <div class="page-header">
+    <h1 class="page-title">Clientes</h1>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="search-section">
+    <p-iconField iconPosition="left" styleClass="w-full">
+      <p-inputIcon styleClass="pi pi-search" />
+      <input 
+        pInputText 
+        type="text"
+        [(ngModel)]="searchValue"
+        (input)="onSearch()"
+        placeholder="Buscar por nome ou telefone..."
+        class="search-input"
+      />
+    </p-iconField>
+    
+    <button 
+      *ngIf="searchValue"
+      pButton 
+      icon="pi pi-times" 
+      class="p-button-text p-button-rounded"
+      (click)="onClearSearch()"
+      pTooltip="Limpar busca"
+      tooltipPosition="bottom"
+    ></button>
+  </div>
+
+  <!-- Loading Skeleton -->
+  <div *ngIf="facade.loading()" class="customers-skeleton">
+    <p-skeleton height="80px" borderRadius="12px" styleClass="mb-3" *ngFor="let i of [1,2,3,4,5]" />
+  </div>
+
+  <!-- Empty State -->
+  <app-empty-state
+    *ngIf="!facade.loading() && !facade.hasCustomers()"
+    icon="pi-users"
+    message="Nenhum cliente cadastrado"
+  />
+
+  <!-- No Results -->
+  <app-empty-state
+    *ngIf="!facade.loading() && facade.hasCustomers() && !facade.hasFilteredResults()"
+    icon="pi-search"
+    message="Nenhum cliente encontrado"
+  />
+
+  <!-- Customers List -->
+  <div class="customers-list" *ngIf="facade.hasFilteredResults()">
+    <div 
+      *ngFor="let customer of facade.filteredCustomers()"
+      class="customer-card"
+      (click)="onCustomerClick(customer.id)"
+    >
+      <div class="customer-avatar">
+        <p-avatar 
+          [label]="getInitials(customer.name)" 
+          shape="circle"
+          size="large"
+          [style]="{ 'background-color': '#ec407a', 'color': '#ffffff' }"
+        />
+      </div>
+      
+      <div class="customer-info">
+        <h3 class="customer-name">{{ customer.name }}</h3>
+        <p class="customer-phone">
+          <i class="pi pi-phone"></i>
+          {{ formatPhone(customer.phone) }}
+        </p>
+        <p class="customer-whatsapp" *ngIf="customer.whatsapp">
+          <i class="pi pi-whatsapp"></i>
+          {{ formatPhone(customer.whatsapp) }}
+        </p>
+      </div>
+      
+      <div class="customer-action">
+        <i class="pi pi-chevron-right"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results Count -->
+  <div class="results-count" *ngIf="facade.hasCustomers() && !facade.loading()">
+    <p>
+      Mostrando {{ facade.filteredCount() }} de {{ facade.customersCount() }} clientes
+    </p>
+  </div>
+</div>

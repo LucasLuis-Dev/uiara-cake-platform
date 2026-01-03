@@ -1,5 +1,6 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { DashboardService, DashboardData } from '../services/dashboard.service';
+import { Order } from '../../../core/models/order.model';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ export class DashboardFacade {
   // Signals
   private loadingSignal = signal<boolean>(false);
   private dashboardDataSignal = signal<DashboardData | null>(null);
-  private upcomingDeliveriesSignal = signal<any[]>([]);
+  private upcomingDeliveriesSignal = signal<Order[]>([]);
 
   // Computed - derived state
   readonly loading = this.loadingSignal.asReadonly();
@@ -34,11 +35,11 @@ export class DashboardFacade {
     this.loadingSignal.set(true);
 
     this.dashboardService.getDashboard(startDate, endDate).subscribe({
-      next: (data) => {
+      next: (data: DashboardData) => {
         this.dashboardDataSignal.set(data);
         this.loadingSignal.set(false);
       },
-      error: (error) => {
+      error: (error: Error) => {
         console.error('Error loading dashboard:', error);
         this.loadingSignal.set(false);
       }
@@ -47,10 +48,10 @@ export class DashboardFacade {
 
   loadUpcomingDeliveries(days: number = 7): void {
     this.dashboardService.getUpcomingDeliveries(days).subscribe({
-      next: (deliveries) => {
+      next: (deliveries: Order[]) => {
         this.upcomingDeliveriesSignal.set(deliveries);
       },
-      error: (error) => {
+      error: (error: Error) => {
         console.error('Error loading deliveries:', error);
       }
     });

@@ -1,0 +1,17 @@
+<div class="admin-layout">
+    <!-- Header -->
+    <app-admin-header 
+    (toggleSidebar)="toggleSidebar()"
+    />
+    
+    <!-- Main Content -->
+    <main class="admin-main" [class.sidebar-open]="sidebarVisible()">
+        <router-outlet />
+    </main>
+    
+    <!-- Bottom Navigation Mobile -->
+    <app-admin-bottom-nav />
+    
+    <!-- FAB Button -->
+    <app-fab-button />
+</div>

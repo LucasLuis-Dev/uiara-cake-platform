@@ -8,6 +8,6 @@ export interface Flavor {
   name: string;
   type: FlavorType;
   active: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: Date | string;
+  updatedAt: Date | string;
 }

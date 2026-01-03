@@ -1,0 +1,21 @@
+.fab-button {
+  position: fixed;
+  bottom: 90px;
+  right: 1.5rem;
+  width: 56px;
+  height: 56px !important;
+  background: #ff8b77 !important;
+  color: white;
+  border: none;
+  box-shadow: 0 4px 12px rgba(236, 64, 122, 0.4);
+  z-index: 999;
+  transition: all 0.3s ease;
+
+  @media (min-width: 768px) {
+    bottom: 1.5rem;
+  }
+
+  ::ng-deep .pi-plus {
+    font-size: 1.5rem;
+  }
+}

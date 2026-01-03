@@ -1,0 +1,74 @@
+.metric-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+  }
+
+  .metric-icon-wrapper {
+    width: 32px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(236, 64, 122, 0.1);
+
+    .metric-icon {
+      font-size: 1.5rem;
+      color: #ff8b77;
+    }
+  }
+
+  .metric-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    .metric-label {
+      font-size: 0.8rem;
+      color: rgb(77,77,77);
+      font-weight: 500;
+    }
+
+    .metric-value {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: rgb(77,77,77);
+      line-height: 1.2;
+
+      @media (min-width: 768px) {
+        font-size: 1.75rem;
+      }
+    }
+  }
+
+  // Variações de cor (caso queira usar depois)
+  &.metric-card-success .metric-icon-wrapper {
+    background: rgba(76, 175, 80, 0.1);
+    .metric-icon {
+      color: #4caf50;
+    }
+  }
+
+  &.metric-card-warning .metric-icon-wrapper {
+    background: rgba(255, 152, 0, 0.1);
+    .metric-icon {
+      color: #ff9800;
+    }
+  }
+
+  &.metric-card-info .metric-icon-wrapper {
+    background: rgba(33, 150, 243, 0.1);
+    .metric-icon {
+      color: #2196f3;
+    }
+  }
+}

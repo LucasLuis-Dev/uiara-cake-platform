@@ -1,0 +1,98 @@
+<div class="dashboard-page">
+  <!-- Greeting Header -->
+  <div class="greeting-section">
+    <h1 class="greeting-title">{{ getGreeting() }}! Uiara 👋</h1>
+    <p class="greeting-date">{{ formatDate() }}</p>
+  </div>
+
+  <!-- Metrics Grid -->
+  @if (facade.dashboardData(); as data) {
+    <div class="metrics-grid">
+      <app-metric-card
+        icon="pi-shopping-bag"
+        label="Encomendas"
+        [value]="data.metrics.totalOrders"
+        color="primary"
+      />
+
+      <app-metric-card
+        icon="pi-dollar"
+        label="Faturamento"
+        [value]="data.metrics.totalRevenue"
+        [isCurrency]="true"
+        color="primary"
+      />
+
+      <app-metric-card
+        icon="pi-truck"
+        label="Entregas Hoje"
+        [value]="data.metrics.deliveriesToday"
+        color="primary"
+      />
+
+      <app-metric-card
+        icon="pi-wallet"
+        label="A Receber"
+        [value]="0"
+        [isCurrency]="true"
+        color="primary"
+      />
+    </div>
+  } @else {
+    <!-- Loading Skeleton -->
+    <div class="metrics-grid">
+      @for (i of [1,2,3,4]; track i) {
+        <p-skeleton height="120px" borderRadius="16px" />
+      }
+    </div>
+  }
+
+  <!-- Upcoming Deliveries Section -->
+  <div class="deliveries-section">
+    <h2 class="section-title">Próximas Entregas</h2>
+
+    <!-- Deliveries List -->
+    @if (facade.hasDeliveries()) {
+      <div class="deliveries-list">
+        @for (delivery of facade.upcomingDeliveries(); track delivery.id) {
+          <p-card class="delivery-card">
+            <div class="delivery-item">
+              <div class="delivery-info">
+                <h3>{{ delivery.customer.name }}</h3>
+                <p class="delivery-details">
+                  <i class="pi pi-cake"></i>
+                  {{ delivery.size }} - {{ delivery.coverageType }}
+                </p>
+                <p class="delivery-date">
+                  <i class="pi pi-calendar"></i>
+                  {{ delivery.deliveryDate | date: 'dd/MM/yyyy HH:mm' }}
+                </p>
+              </div>
+              <div class="delivery-status">
+                <p-tag 
+                  [value]="getStatusLabel(delivery.status)" 
+                  [severity]="getStatusSeverity(delivery.status)"
+                />
+              </div>
+            </div>
+          </p-card>
+        }
+      </div>
+    } @else if (!facade.hasDeliveries() && !facade.loading()) {
+        <app-empty-state
+        icon="pi-calendar"
+        message="Nenhuma entrega agendada"
+        />
+    }
+
+    @if (facade.loading()) {
+      <div class="loading-state">
+        <p-progressSpinner 
+          class="custom-spinner"
+          strokeWidth="4"
+          [style]="{ width: '50px', height: '50px' }"
+        />
+      </div>
+    }
+  </div>
+</div>
