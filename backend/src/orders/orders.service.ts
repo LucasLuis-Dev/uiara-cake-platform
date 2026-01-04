@@ -91,7 +91,6 @@ export class OrdersService {
         location: customer.address ?? undefined,
         startDateTime: deliveryDate,
         endDateTime: new Date(deliveryDate.getTime() + 60 * 60 * 1000), // +1 hour
-        attendees: customer.whatsapp ? [customer.whatsapp] : undefined,
         reminders: {
           useDefault: false,
           overrides: [
