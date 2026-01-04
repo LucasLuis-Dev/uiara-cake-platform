@@ -1,0 +1,121 @@
+::ng-deep {
+  .customer-modal {
+    border-radius: 10px;
+    .p-dialog-header {
+      background: white;
+      border-radius: 10px 10px 0px 0px;
+
+      .modal-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: rgb(77, 77, 77);
+        margin: 0;
+      }
+    }
+
+    .p-dialog-content {
+      padding: 1.5rem;
+      padding-top: 0rem;
+      background: white;
+      border-radius: 0px 0px 10px 10px;
+    }
+
+    .p-dialog-header-close {
+      width: 2rem;
+      height: 2rem;
+      
+      &:hover {
+        background: rgba(236, 64, 122, 0.1);
+        color: var(--primary-color);
+      }
+    }
+  }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .field-label {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: rgb(77, 77, 77);
+
+    .required {
+      color: #f44336;
+    }
+  }
+}
+
+.form-input,
+::ng-deep .form-input input {
+  width: 100%;
+  padding: 0.875rem 1rem;
+    height: 3.4rem;
+    border-radius: 1rem;
+  background-color: #F7F8FA;
+  border: 1px solid #dcdfe599;
+  font-size: 0.9375rem;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: #bdbdbd;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(236, 64, 122, 0.1);
+  }
+
+  &.error,
+  &.error input {
+    border-color: #f44336;
+  }
+
+  &::placeholder {
+    color: #bdbdbd;
+  }
+}
+
+::ng-deep {
+  .form-input {
+    width: 100%;
+    border-radius: 12px;
+    background-color: #F7F8FA;
+    border: 1px solid #dcdfe599;
+    color: rgb(77, 77, 77);
+    height: 3.4rem;
+    border-radius: 1rem;
+  }
+}
+
+.error-message {
+  color: #f44336;
+  font-size: 0.8125rem;
+  margin-top: -0.25rem;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  background: #ff8b77;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  margin-top: 0.5rem;
+
+
+  &:active {
+    transform: scale(0.98);
+  }
+}

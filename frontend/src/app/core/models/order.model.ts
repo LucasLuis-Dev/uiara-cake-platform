@@ -49,7 +49,6 @@ export interface OrderCreateDto {
   doughId: string;
   deliveryDate: string;
   observations?: string;
-  downPaymentPaid?: boolean;
 }
 
 export interface PriceInfo {

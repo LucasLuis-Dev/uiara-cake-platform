@@ -19,7 +19,7 @@ export class AdminBottomNav {
 
   navItems: NavItem[] = [
     { label: 'Início', icon: 'pi-home', route: '/admin/dashboard' },
-    { label: 'Calendário', icon: 'pi-calendar', route: '/admin/calendar' },
+    // { label: 'Calendário', icon: 'pi-calendar', route: '/admin/calendar' },
     { label: 'Clientes', icon: 'pi-users', route: '/admin/customers' },
     { label: 'Relatórios', icon: 'pi-chart-bar', route: '/admin/reports' }
   ];

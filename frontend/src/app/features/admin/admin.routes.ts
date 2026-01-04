@@ -19,14 +19,14 @@ export const ADMIN_ROUTES: Routes = [
     //     path: 'calendar',
     //     loadChildren: () => import('../calendar/calendar.routes').then(m => m.CALENDAR_ROUTES)
     //   },
-    //   {
-    //     path: 'customers',
-    //     loadChildren: () => import('../customers/customers.routes').then(m => m.CUSTOMERS_ROUTES)
-    //   },
-    //   {
-    //     path: 'orders',
-    //     loadChildren: () => import('../orders/orders.routes').then(m => m.ORDERS_ROUTES)
-    //   },
+      {
+        path: 'customers',
+        loadChildren: () => import('../customers/customers.routes').then(m => m.CUSTOMERS_ROUTES)
+      },
+      {
+        path: 'orders',
+        loadChildren: () => import('../orders/orders.routes').then(m => m.ORDERS_ROUTES)
+      },
     //   {
     //     path: 'reports',
     //     loadChildren: () => import('../reports/reports.routes').then(m => m.REPORTS_ROUTES)

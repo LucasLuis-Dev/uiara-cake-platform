@@ -1,0 +1,72 @@
+<div class="step-container">
+  <!-- Summary Card -->
+  <div class="summary-card">
+    <div class="summary-row">
+      <span class="summary-label">Cliente:</span>
+      <span class="summary-value">{{ facade.orderForm().customer?.name }}</span>
+    </div>
+
+    <div class="summary-row">
+      <span class="summary-label">Tamanho:</span>
+      <span class="summary-value">{{ facade.orderForm().size }}</span>
+    </div>
+
+    <div class="summary-row">
+      <span class="summary-label">Cobertura:</span>
+      <span class="summary-value">{{ getCoverageLabel(facade.orderForm().coverageType) }}</span>
+    </div>
+
+    <div class="summary-row">
+      <span class="summary-label">Recheio:</span>
+      <span class="summary-value">{{ getFillingName() }}</span>
+    </div>
+
+    <div class="summary-row">
+      <span class="summary-label">Massa:</span>
+      <span class="summary-value">{{ getDoughName() }}</span>
+    </div>
+
+    <div class="summary-row">
+      <span class="summary-label">Entrega:</span>
+      <span class="summary-value">{{ formatDate(facade.orderForm().deliveryDate) }}</span>
+    </div>
+  </div>
+
+  <!-- Payment Card -->
+  <div class="payment-card">
+    <div class="payment-row total">
+      <span class="payment-label">Total:</span>
+      <span class="payment-value">{{ facade.totalPrice() | currency: 'BRL' }}</span>
+    </div>
+
+    <div class="payment-row down-payment">
+      <span class="payment-label">Entrada (50%):</span>
+      <span class="payment-value success">{{ facade.downPayment() | currency: 'BRL' }}</span>
+    </div>
+
+    <div class="payment-row remaining">
+      <span class="payment-label">Saldo na entrega:</span>
+      <span class="payment-value">{{ facade.remainingPayment() | currency: 'BRL' }}</span>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="step-actions">
+    <button 
+      pButton 
+      label="Voltar" 
+      icon="pi pi-arrow-left"
+      class="p-button-outlined w-full"
+      (click)="facade.previousStep()"
+    ></button>
+    <button 
+      pButton 
+      label="Confirmar Encomenda" 
+      icon="pi pi-check"
+      iconPos="right"
+      class="p-button primary w-full"
+      [loading]="facade.loading()"
+      (click)="onConfirm()"
+    ></button>
+  </div>
+</div>

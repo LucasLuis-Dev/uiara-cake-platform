@@ -1,0 +1,64 @@
+<div class="step-container">
+  <!-- Filling Selection -->
+  <div class="form-field">
+    <label class="field-label">Recheio</label>
+    <p-select
+      [options]="facade.fillings()"
+      [(ngModel)]="facade.orderForm().fillingId"
+      (onChange)="onFillingChange($event)"
+      optionLabel="name"
+      optionValue="id"
+      placeholder="Selecione o recheio"
+      styleClass="w-full select" 
+      [showClear]="false"
+    >
+      <ng-template let-flavor pTemplate="item">
+        <div class="dropdown-item">
+          <span>{{ flavor.name }}</span>
+        </div>
+      </ng-template>
+    </p-select>
+  </div>
+
+  <!-- Dough Selection -->
+  <div class="form-field">
+    <label class="field-label">Massa</label>
+    <p-select
+      [options]="facade.doughs()"
+      [(ngModel)]="facade.orderForm().doughId"
+      (onChange)="onDoughChange($event)"
+      optionLabel="name"
+      optionValue="id"
+      placeholder="Selecione a massa"
+      styleClass="w-full select"
+      [showClear]="false"
+    >
+      <ng-template let-flavor pTemplate="item">
+        <div class="dropdown-item">
+          <span>{{ flavor.name }}</span>
+        </div>
+      </ng-template>
+    </p-select>
+  </div>
+
+  <!-- Navigation -->
+  <div class="step-actions">
+    <button 
+      pButton 
+      label="Voltar" 
+      icon="pi pi-arrow-left"
+      class="p-button-outlined w-full"
+      (click)="facade.previousStep()"
+    ></button>
+    <button 
+      pButton 
+      label="Próximo" 
+      icon="pi pi-arrow-right"
+      iconPos="right"
+      class="p-button primary w-full"
+      [disabled]="!facade.canProceedStep3()"
+      (click)="facade.nextStep()"
+    ></button>
+  </div>
+</div>
+

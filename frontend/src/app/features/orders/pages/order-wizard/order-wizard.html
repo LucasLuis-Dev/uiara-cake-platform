@@ -1,0 +1,40 @@
+  <div class="order-wizard">
+      <!-- Header -->
+      <div class="wizard-header">
+        <button class="back-button" (click)="onBack()">
+          <i class="pi pi-arrow-left"></i>
+        </button>
+        <div class="wizard-title">
+          <h1>Nova Encomenda</h1>
+          <p>{{ getStepTitle() }}</p>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="progress-bar">
+        <div 
+          class="progress-fill" 
+          [style.width.%]="(facade.currentStep() / 5) * 100"
+        ></div>
+      </div>
+
+      <!-- Steps -->
+      <div class="wizard-content">
+          @if (facade.currentStep() === 1) {
+            <app-order-step1 />
+          }
+          @if (facade.currentStep() === 2) {
+            <app-order-step2 />
+          }
+          @if (facade.currentStep() === 3) {
+            <app-order-step3 />
+          }
+          @if (facade.currentStep() === 4) {
+            <app-order-step4 />
+          }
+          @if (facade.currentStep() === 5) {
+            <app-order-step5 />
+          }
+      </div>
+
+    </div>

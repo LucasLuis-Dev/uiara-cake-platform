@@ -15,7 +15,7 @@
   .page-title {
     font-size: 1.75rem;
     font-weight: 600;
-    color: var(--text-primary);
+    color: rgb(77, 77, 77);
 
     @media (min-width: 768px) {
       font-size: 2rem;
@@ -29,14 +29,17 @@
   gap: 0.5rem;
   margin-bottom: 1.5rem;
 
-  ::ng-deep .p-icon-field {
+  ::ng-deep .p-iconfield {
     flex: 1;
 
     .search-input {
       width: 100%;
-      border-radius: 12px;
+      height: 3.4rem;
+      border-radius: 1rem;
+      color: rgb(77, 77, 77);
+      border: .1rem solid #dcdfe599;
+      background-color: white;
       padding: 0.875rem 1rem 0.875rem 2.75rem;
-      border: 1px solid #e0e0e0;
       font-size: 0.9375rem;
 
       &:focus {

@@ -44,9 +44,9 @@
 
 .deliveries-section {
     background: white;
-    border-radius: 16px;
+    border-radius: 1rem;
     padding: 1.25rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: .1rem solid #dcdfe599;
     .section-title {
         font-size: 1.25rem;
         font-weight: 600;
@@ -61,9 +61,11 @@
   gap: 1rem;
 
   ::ng-deep .delivery-card {
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-radius: 1rem;
     transition: all 0.2s ease;
+    background-color: #ff8b771f;
+    border: .1rem solid #dcdfe599;
+    box-shadow: none !important;
 
     &:hover {
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
@@ -72,6 +74,7 @@
 
     .p-card-body {
       padding: 1rem;
+      
     }
 
     .p-card-content {
@@ -108,15 +111,18 @@
     .delivery-details,
     .delivery-date {
       font-size: 0.875rem;
-      color: var(--text-secondary);
+      color: rgb(77,77,77);
       margin: 0.25rem 0;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
 
       i {
         font-size: 0.875rem;
       }
+    }
+
+    .delivery-date {
+      gap: .5rem;
     }
   }
 

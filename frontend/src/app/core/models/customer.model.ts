@@ -6,6 +6,11 @@ export interface Customer {
   address?: string;
   createdAt: Date;
   updatedAt: Date;
+  _count: count
+}
+
+interface count {
+  orders: number;
 }
 
 export interface CustomerCreateDto {

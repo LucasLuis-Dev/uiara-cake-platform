@@ -13,6 +13,7 @@ export class CustomersFacade {
   private selectedCustomerSignal = signal<Customer | null>(null);
   private searchQuerySignal = signal<string>('');
   private errorSignal = signal<string | null>(null);
+  private showFormModalSignal = signal<boolean>(false);
 
   // Public readonly signals
   readonly loading = this.loadingSignal.asReadonly();
@@ -20,6 +21,7 @@ export class CustomersFacade {
   readonly selectedCustomer = this.selectedCustomerSignal.asReadonly();
   readonly searchQuery = this.searchQuerySignal.asReadonly();
   readonly error = this.errorSignal.asReadonly();
+  readonly showFormModal = this.showFormModalSignal.asReadonly();
 
   // Computed signals
   readonly filteredCustomers = computed(() => {
@@ -212,5 +214,44 @@ export class CustomersFacade {
    */
   navigateToDetail(id: string): void {
     this.router.navigate(['/admin/customers', id]);
+  }
+
+  /**
+   * Abrir modal de formulário
+   */
+  openFormModal(): void {
+    this.showFormModalSignal.set(true);
+  }
+
+  /**
+   * Fechar modal de formulário
+   */
+  closeFormModal(): void {
+    this.showFormModalSignal.set(false);
+  }
+
+  /**
+   * Criar cliente via modal
+   */
+  createCustomerFromModal(data: CustomerCreateDto): void {
+    this.loadingSignal.set(true);
+    this.errorSignal.set(null);
+
+    this.customersService.create(data).subscribe({
+      next: (customer: Customer) => {
+        // Adicionar à lista
+        this.customersSignal.update(customers => [...customers, customer]);
+        this.loadingSignal.set(false);
+        this.closeFormModal();
+        
+        // Mostrar sucesso (opcional)
+        console.log('Cliente criado:', customer.name);
+      },
+      error: (error: Error) => {
+        console.error('Error creating customer:', error);
+        this.errorSignal.set('Erro ao criar cliente');
+        this.loadingSignal.set(false);
+      }
+    });
   }
 }

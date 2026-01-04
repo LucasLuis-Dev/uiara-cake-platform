@@ -1,0 +1,79 @@
+<div class="step-container">
+  <!-- Search -->
+  <p-iconField iconPosition="left" styleClass="w-full mb-3">
+    <p-inputIcon styleClass="pi pi-search" />
+    <input 
+      pInputText 
+      type="text"
+      [(ngModel)]="searchQuery"
+      placeholder="Buscar cliente..."
+      class="search-input"
+    />
+  </p-iconField>
+
+  <!-- New Customer Button -->
+  <button 
+    pButton 
+    label="+ Novo Cliente" 
+    class="p-button-outlined w-full mb-4"
+    (click)="onNewCustomer()"
+  ></button>
+
+  <!-- Selected Customer -->
+  <div 
+    *ngIf="facade.orderForm().customer" 
+    class="selected-customer"
+  >
+    <div class="customer-avatar">
+      <p-avatar 
+        [label]="getInitials(facade.orderForm().customer!.name)" 
+        shape="circle"
+        [style]="{ 'background-color': '#ec407a', 'color': '#ffffff' }"
+      />
+    </div>
+    <div class="customer-info">
+      <h3>{{ facade.orderForm().customer!.name }}</h3>
+      <p>{{ facade.orderForm().customer!.phone }}</p>
+    </div>
+    <i class="pi pi-check-circle check-icon"></i>
+  </div>
+
+  <!-- Customers List -->
+  <div class="customers-list" *ngIf="!facade.orderForm().customer">
+    <div 
+      *ngFor="let customer of filteredCustomers"
+      class="customer-item"
+      (click)="onSelectCustomer(customer)"
+    >
+      <div class="customer-avatar">
+        <p-avatar 
+          [label]="getInitials(customer.name)" 
+          shape="circle"
+          size="normal"
+          [style]="{ 'background-color': '#ec407a', 'color': '#ffffff' }"
+        />
+      </div>
+      <div class="customer-info">
+        <h3>{{ customer.name }}</h3>
+        <p>{{ customer.phone }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Next Button -->
+    <button 
+      pButton 
+      label="Próximo" 
+      icon="pi pi-arrow-right"
+      iconPos="right"
+      class="p-button-next w-full"
+      [disabled]="!facade.canProceedStep1()"
+      (click)="facade.nextStep()"
+    ></button>
+
+  <app-customer-form-modal
+    [(visible)]="showModal"
+    (onSubmit)="onSubmitCustomer($event)"
+    (onCancel)="onCloseModal()"
+  />
+</div>

@@ -1,0 +1,62 @@
+<div class="step-container">
+  <!-- Coverage Toggle -->
+  <div class="coverage-toggle">
+    <button 
+      class="toggle-btn"
+      [class.active]="facade.orderForm().coverageType === CoverageType.CHANTILLY"
+      (click)="onSelectCoverage(CoverageType.CHANTILLY)"
+    >
+      Chantinho
+    </button>
+    <button 
+      class="toggle-btn"
+      [class.active]="facade.orderForm().coverageType === CoverageType.GANACHE"
+      (click)="onSelectCoverage(CoverageType.GANACHE)"
+    >
+      Ganache Cake
+    </button>
+  </div>
+
+  <!-- Info Badge -->
+  @if (facade.orderForm().coverageType === CoverageType.CHANTILLY) {
+    <div class="info-badge">
+      <i class="pi pi-sparkles"></i>
+      <span>Topo incluso</span>
+    </div>
+  }
+
+
+  <!-- Size Grid -->
+  <div class="size-grid">
+    <div 
+      *ngFor="let size of [Size.PP, Size.P, Size.M, Size.G, Size.GG]"
+      class="size-card"
+      [class.selected]="facade.orderForm().size === size"
+      (click)="onSelectSize(size)"
+    >
+      <div class="size-label">{{ size }}</div>
+      <div class="size-specs">{{ getSpecs(size) }}</div>
+      <div class="size-price">{{ getPrice(size) | currency: 'BRL' }}</div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="step-actions">
+    <button 
+      pButton 
+      label="Voltar" 
+      icon="pi pi-arrow-left"
+      class="p-button-outlined w-full"
+      (click)="facade.previousStep()"
+    ></button>
+    <button 
+      pButton 
+      label="Próximo" 
+      icon="pi pi-arrow-right"
+      iconPos="right"
+      class="p-button primary w-full"
+      [disabled]="!facade.canProceedStep2()"
+      (click)="facade.nextStep()"
+    ></button>
+  </div>
+</div>

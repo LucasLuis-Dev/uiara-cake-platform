@@ -1,0 +1,52 @@
+<div class="step-container">
+  <!-- Date Picker -->
+  <div class="form-field">
+    <label class="field-label">Data de Entrega</label>
+    <p-datepicker
+      [(ngModel)]="deliveryDate"
+      (onSelect)="onDateChange($event)"
+      [minDate]="minDate"
+      [showIcon]="true"
+      hourFormat="24"
+      dateFormat="dd/mm/yy"
+      placeholder="Selecione a data"
+      styleClass="w-full datepicker"
+      [showButtonBar]="true"
+      appendTo="body"
+    />
+    <small class="field-hint">* Mínimo 2 dias de antecedência</small>
+  </div>
+
+  <!-- Observations -->
+  <div class="form-field">
+    <label class="field-label">Observações</label>
+    <textarea
+      pTextarea
+      [(ngModel)]="observations"
+      (ngModelChange)="onObservationsChange()"
+      placeholder="Ex: Escrever 'Parabéns Ana' no topo..."
+      rows="4"
+      class="observations-input"
+    ></textarea>
+  </div>
+
+  <!-- Navigation -->
+  <div class="step-actions">
+    <button 
+      pButton 
+      label="Voltar" 
+      icon="pi pi-arrow-left"
+      class="p-button-outlined w-full"
+      (click)="facade.previousStep()"
+    ></button>
+    <button 
+      pButton 
+      label="Próximo" 
+      icon="pi pi-arrow-right"
+      iconPos="right"
+      class="p-button primary w-full"
+      [disabled]="!facade.canProceedStep4()"
+      (click)="facade.nextStep()"
+    ></button>
+  </div>
+</div>

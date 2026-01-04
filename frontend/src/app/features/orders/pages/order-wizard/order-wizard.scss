@@ -1,0 +1,69 @@
+.order-wizard {
+  min-height: 100vh;
+  background: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.wizard-header {
+  background: white;
+  color: white;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  .back-button {
+    background: none;
+    border: none;
+    color: rgb(77, 77, 77);
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+
+  .wizard-title {
+    flex: 1;
+
+    h1 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: rgb(77, 77, 77);
+    }
+
+    p {
+      font-size: 0.875rem;
+      opacity: 0.9;
+      color: rgb(77, 77, 77);
+    }
+  }
+}
+
+.progress-bar {
+  height: 4px;
+  background: rgba(236, 64, 122, 0.2);
+  position: relative;
+
+  .progress-fill {
+    height: 100%;
+    background: #ff8b77;
+    transition: width 0.3s ease;
+  }
+}
+
+.wizard-content {
+  flex: 1;
+  padding: 1.5rem 1rem;
+  padding-bottom: 100px;
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+}

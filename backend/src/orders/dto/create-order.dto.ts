@@ -4,7 +4,6 @@ import {
   IsEnum,
   IsDateString,
   IsOptional,
-  IsUUID,
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Size, CoverageType } from '@prisma/client';
@@ -14,7 +13,7 @@ export class CreateOrderDto {
     description: 'ID do cliente',
     example: '550e8400-e29b-41d4-a716-446655440000',
   })
-  @IsUUID()
+  @IsString()
   @IsNotEmpty({ message: 'Customer is required' })
   customerId: string;
 
@@ -40,7 +39,7 @@ export class CreateOrderDto {
     description: 'ID do sabor do recheio',
     example: 'prestigio',
   })
-  @IsUUID()
+  @IsString()
   @IsNotEmpty({ message: 'Filling is required' })
   fillingId: string;
 
@@ -48,7 +47,7 @@ export class CreateOrderDto {
     description: 'ID do sabor da massa',
     example: 'dough-chocolate',
   })
-  @IsUUID()
+  @IsString()
   @IsNotEmpty({ message: 'Dough is required' })
   doughId: string;
 
