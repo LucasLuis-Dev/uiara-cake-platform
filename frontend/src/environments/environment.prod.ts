@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://api.uiaracake.com/api'
+  apiUrl: 'https://uiara-cake-platform.onrender.com/api'
 };
