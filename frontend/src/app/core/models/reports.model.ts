@@ -1,48 +1,100 @@
-import { Size, CoverageType } from './order.model';
-
-export interface ReportsMetrics {
-  totalRevenue: number;
-  totalOrders: number;
-  averageTicket: number;
-  receivable: number; // A receber (50% restante)
+export interface DashboardMetrics {
+  metrics: {
+    totalOrders: number;
+    totalRevenue: number;
+    deliveriesToday: number;
+    averageTicket: number;
+  };
+  topProducts: Array<{
+    size: string;
+    quantity: number;
+  }>;
+  topFlavors: Array<{
+    flavor: string;
+    quantity: number;
+  }>;
+  topCustomers: Array<{
+    customer: {
+      id: string;
+      name: string;
+      phone: string;
+    };
+    totalOrders: number;
+    totalSpent: number;
+  }>;
 }
 
-export interface SizeDistribution {
-  size: Size;
-  count: number;
-  percentage: number;
+export interface ProductPerformance {
+  bySize: {
+    [key: string]: {
+      quantity: number;
+      revenue: number;
+    };
+  };
+  byCoverage: {
+    [key: string]: {
+      quantity: number;
+      revenue: number;
+    };
+  };
+  byFilling: {
+    [key: string]: {
+      quantity: number;
+      revenue: number;
+    };
+  };
 }
 
-export interface FlavorRanking {
-  id: string;
-  name: string;
-  count: number;
+export interface CalendarDelivery {
+  date: string;
+  orders: Array<{
+    id: string;
+    customerName: string;
+    size: string;
+    deliveryTime: string;
+  }>;
+}
+
+export interface FinancialReport {
+  period: {
+    startDate: string;
+    endDate: string;
+  };
+  revenue: {
+    total: number;
+    paid: number;
+    pending: number;
+  };
+  costs: {
+    total: number;
+  };
+  profit: {
+    total: number;
+    margin: number;
+  };
+}
+
+export interface RevenueByPeriod {
+  date: string;
   revenue: number;
+  orders: number;
 }
 
-export interface CustomerRanking {
+export interface UpcomingDelivery {
   id: string;
-  name: string;
-  orderCount: number;
-  totalSpent: number;
+  customerName: string;
+  customerPhone: string;
+  size: string;
+  deliveryDate: string;
+  totalValue: number;
+  status: string;
 }
 
-export interface ReportsPeriod {
-  startDate: Date;
-  endDate: Date;
-}
-
-export enum ReportsPeriodType {
+export enum ReportPeriod {
   THIS_MONTH = 'THIS_MONTH',
   LAST_MONTH = 'LAST_MONTH',
+  LAST_3_MONTHS = 'LAST_3_MONTHS',
+  LAST_6_MONTHS = 'LAST_6_MONTHS',
   THIS_YEAR = 'THIS_YEAR',
   CUSTOM = 'CUSTOM'
-}
-
-export interface ReportsData {
-  metrics: ReportsMetrics;
-  sizeDistribution: SizeDistribution[];
-  topFlavors: FlavorRanking[];
-  topCustomers: CustomerRanking[];
-  period: ReportsPeriod;
 }

@@ -1,0 +1,246 @@
+.reports-container {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  
+}
+
+.reports-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  gap: 1rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .header-left {
+    .page-title {
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: rgb(77,77,77);
+      margin: 0;
+
+      @media (max-width: 768px) {
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  .header-right {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      
+      ::ng-deep .period-dropdown {
+        width: 100%;
+        background-color: white;
+        border: 1px solid #dcdfe599;
+        color: rgb(77, 77, 77);
+        height: 3.4rem;
+        border-radius: 1rem;
+        display: flex;
+        align-items: center;
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+}
+
+
+.charts-grid {
+  margin-bottom: 2rem;
+
+  @media (max-width: 768px) {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.chart-card {
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: none !important;
+  border: 1px solid #dcdfe599;
+
+  ::ng-deep {
+    .p-card-body {
+      padding: 0;
+    }
+
+    .p-card-content {
+      padding: 0;
+    }
+  }
+
+  .card-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid #f0f0f0;
+
+    h3 {
+      margin: 0;
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: rgb(77, 77, 77);
+    }
+  }
+
+  .chart-container {
+    padding: 1.5rem;
+  }
+
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    color: rgb(77, 77, 77);
+
+    i {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      opacity: 0.2;
+      color: rgb(77, 77, 77);
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.9375rem;
+      font-weight: 500;
+    }
+  }
+}
+
+.top-lists-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 1.25rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.top-card {
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: none !important;
+  border: 1px solid #dcdfe599;
+
+  ::ng-deep {
+
+    .p-card-body {
+      padding: 0;
+    }
+
+    .p-card-content {
+      padding: 1.5rem;
+    }
+  }
+
+  .card-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid #f0f0f0;
+
+    h3 {
+      margin: 0;
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: rgb(77, 77, 77);
+    }
+  }
+
+  .top-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .top-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 1.2rem;
+    background: #ff8b77;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: #f0f0f0;
+      transform: translateX(4px);
+    }
+
+    .top-rank {
+      width: 36px;
+      height: 36px;
+      background: white;
+      color: #ff8b77;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .top-name {
+      flex: 1;
+      font-weight: 500;
+      color: white;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .top-count {
+      font-size: 0.9rem;
+      color: white;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .top-info {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .top-details {
+      font-size: 0.9rem;
+      color: white;
+      font-weight: 500;
+    }
+  }
+
+  .empty-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+    color: var(--text-secondary);
+
+    p {
+      margin: 0;
+      font-weight: 500;
+    }
+  }
+}

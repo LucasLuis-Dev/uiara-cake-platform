@@ -7,7 +7,7 @@ import { TagModule } from 'primeng/tag';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { SkeletonModule } from 'primeng/skeleton';
 
-import { MetricCard } from '../../components/metric-card/metric-card';
+import { MetricCard } from '../../../../shared/components/metric-card/metric-card';
 
 import { DashboardFacade } from '../../facades/dashboard.facade';
 import { EmptyState } from '../../../../shared/components/empty-state/empty-state';

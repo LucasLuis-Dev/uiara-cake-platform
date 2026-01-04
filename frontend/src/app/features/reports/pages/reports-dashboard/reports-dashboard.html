@@ -1,0 +1,172 @@
+<div class="reports-container">
+  <!-- Header -->
+  <div class="reports-header">
+    <div class="header-left">
+      <h1 class="page-title">Relatórios</h1>
+    </div>
+    <div class="header-right">
+      <p-select
+        [options]="periodOptions"
+        [(ngModel)]="selectedPeriod"
+        (onChange)="onPeriodChange($event.value)"
+        optionLabel="label"
+        optionValue="value"
+        placeholder="Selecione o período"
+        styleClass="period-dropdown"
+      />
+      <button
+        pButton
+        icon="pi pi-refresh"
+        class="p-button-text"
+        (click)="onRefresh()"
+        [loading]="facade.loading()"
+      ></button>
+    </div>
+  </div>
+
+   @if (facade.dashboard(); as data) {
+    <div class="metrics-grid">
+      <app-metric-card
+        icon="pi-shopping-bag"
+        label="Encomendas"
+        [value]="data.metrics.totalOrders"
+        color="primary"
+      />
+
+      <app-metric-card
+        icon="pi-dollar"
+        label="Total Vendido"
+        [value]="data.metrics.totalRevenue"
+        [isCurrency]="true"
+        color="primary"
+      />
+
+      <app-metric-card
+        icon="pi-wallet"
+        label="Ticket Médio"
+        [value]="facade.dashboard()!.metrics.averageTicket"
+        [isCurrency]="true"
+        color="primary"
+      />
+
+      <app-metric-card
+        icon="pi-wallet"
+        label="A Receber"
+        [value]="0"
+        [isCurrency]="true"
+        color="primary"
+      />
+    </div>
+  } @else {
+    <!-- Loading Skeleton -->
+    <div class="metrics-grid">
+      @for (i of [1,2,3,4]; track i) {
+        <p-skeleton height="120px" borderRadius="16px" />
+      }
+    </div>
+  }
+
+  
+
+  <!-- Charts Section -->
+  <div class="charts-grid">
+    
+
+    <!-- Tamanhos Mais Vendidos -->
+    <p-card class="chart-card">
+      <ng-template pTemplate="header">
+        <div class="card-header">
+          <h3>Tamanhos Mais Vendidos</h3>
+        </div>
+      </ng-template>
+      
+      @if (sizeChartData && !facade.loading()) {
+        <div class="chart-container">
+          <p-chart
+            type="bar"
+            [data]="sizeChartData"
+            [options]="sizeChartOptions"
+            [style]="{ height: '300px' }"
+          />
+        </div>
+      }
+
+      @if (!sizeChartData && !facade.loading()) {
+        <div class="empty-state">
+          <i class="pi pi-chart-bar"></i>
+          <p>Sem dados no período</p>
+        </div>
+      }
+
+      @if (facade.loading()) {
+        <p-skeleton height="300px" />
+      }
+    </p-card>
+  </div>
+
+  <!-- Top Lists -->
+  <div class="top-lists-grid">
+    <!-- Top 5 Sabores -->
+    <p-card class="top-card">
+      <ng-template pTemplate="header">
+        <div class="card-header">
+          <h3>Top 5 Sabores</h3>
+        </div>
+      </ng-template>
+
+      @if (topFillings.length > 0 && !facade.loading()) {
+        <div class="top-list">
+          @for (filling of topFillings; track filling.name; let i = $index) {
+            <div class="top-item">
+              <span class="top-rank">{{ i + 1 }}</span>
+              <span class="top-name">{{ filling.name }}</span>
+              <span class="top-count">{{ filling.count }} pedidos</span>
+            </div>
+          }
+        </div>
+      }
+
+      @if (topFillings.length === 0 && !facade.loading()) {
+        <div class="empty-state">
+          <p>Sem dados no período</p>
+        </div>
+      }
+
+      @if (facade.loading()) {
+        <p-skeleton height="200px" />
+      }
+    </p-card>
+
+    <!-- Top 5 Clientes -->
+    <p-card class="top-card">
+      <ng-template pTemplate="header">
+        <div class="card-header">
+          <h3>Top 5 Clientes</h3>
+        </div>
+      </ng-template>
+
+      @if (topCustomers.length > 0 && !facade.loading()) {
+        <div class="top-list">
+          @for (customer of topCustomers; track customer.name; let i = $index) {
+            <div class="top-item">
+              <span class="top-rank">{{ i + 1 }}</span>
+              <span class="top-name">{{ customer.name }}</span>
+              <span class="top-details">{{ customer.orders }} pedidos · {{ formatCurrency(customer.spent) }}</span>
+            </div>
+          }
+        </div>
+      }
+
+      @if (topCustomers.length === 0 && !facade.loading()) {
+        <div class="empty-state">
+          <p>Sem dados no período</p>
+        </div>
+      }
+
+      @if (facade.loading()) {
+        <p-skeleton height="200px" />
+      }
+    </p-card>
+  </div>
+
+</div>

@@ -27,10 +27,10 @@ export const ADMIN_ROUTES: Routes = [
         path: 'orders',
         loadChildren: () => import('../orders/orders.routes').then(m => m.ORDERS_ROUTES)
       },
-    //   {
-    //     path: 'reports',
-    //     loadChildren: () => import('../reports/reports.routes').then(m => m.REPORTS_ROUTES)
-    //   }
+      {
+        path: 'reports',
+        loadChildren: () => import('../reports/reports.routes').then(m => m.REPORTS_ROUTES)
+      }
     ]
   }
 ];
